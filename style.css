@@ -1,0 +1,19 @@
+body {
+    background-color: #37474F;
+  }
+  #leftSidenav .list-item-icon {
+    margin-right: 24px;
+  }
+ 
+  #appEditor {
+    padding: 16px;
+  }
+  #appEditor md-card.app-title-card {
+    margin: 16px;
+  }
+  #appEditor .app-dashboard-cards md-card {
+    margin: 16px;
+  }
+  md-dialog {
+    width: 500px;
+  }

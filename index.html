@@ -1,0 +1,391 @@
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+      <!-- Add css -->
+  <link rel="stylesheet" href="style.css">
+    
+  
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+  
+</head>
+<body ng-app="BlankApp" ng-cloak layout="column">
+  
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" hide-gt-md>
+        <md-icon class="material-icons">
+          menu
+        </md-icon>
+      </md-button>
+      <h2>DataStudio</h2>
+      <span flex></span>
+      <div>
+        <md-button>
+          <md-icon class="material-icons">
+            person
+          </md-icon>
+          <span class="md-caption">Callan Milne</span>
+          <md-icon class="material-icons">
+            arrow_drop_down
+          </md-icon>
+        </md-button>
+      </div>
+    </div>
+  </md-toolbar>
+  
+  <div flex layout="row">
+    <md-sidenav
+        id="leftSidenav"
+        class="md-sidenav-left"
+        md-component-id="left"
+        md-is-locked-open="true"
+        md-whiteframe="4">
+
+      <md-content ng-controller="LeftCtrl">
+        <md-button ng-click="close()" class="md-primary" ng-show="false">
+          Close Sidenav Left
+        </md-button>
+        <md-list flex>
+          <md-list-item ng-repeat="item in menuItems" ng-click="null">
+            <div class="list-item-icon">
+              <md-icon class="material-icons" md-inset>
+                {{ item.icon }}
+              </md-icon>
+            </div>
+            <span>{{ item.label }}</span>
+          </md-list-item>
+          <md-subheader class="md-no-sticky">
+            Create &amp; Manage
+          </md-subheader>
+          <md-list-item ng-repeat="item in appMgmtMenuItems" ng-click="null">
+            <div class="list-item-icon">
+              <md-icon class="material-icons" md-inset>
+                {{ item.icon }}
+              </md-icon>
+            </div>
+            <span>{{ item.label }}</span>
+          </md-list-item>
+          <md-subheader class="md-no-sticky">
+            Account
+          </md-subheader>
+          <md-list-item ng-repeat="item in acctMenuItems" ng-click="null">
+            <div class="list-item-icon">
+              <md-icon class="material-icons" md-inset>
+                {{ item.icon }}
+              </md-icon>
+            </div>
+            <span>{{ item.label }}</span>
+          </md-list-item>
+        </md-list>
+      </md-content>
+
+    </md-sidenav>
+    <md-content flex>
+      
+      <div id="appEditor" layout="column" ng-controller="AppDashboardCtrl">
+      
+        <md-card class="app-title-card">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">
+                {{ app.Name }}
+              </span>
+              <span class="md-subhead">
+                App Dashboard
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+        
+        <div class="app-dashboard-cards" layout="row">
+
+          <div flex="50">
+            <div>
+              <md-card>
+                <md-card-header>
+                  <md-card-avatar>
+                    <md-icon class="material-icons">
+                      description
+                    </md-icon>
+                  </md-card-avatar>
+                  <md-card-header-text>
+                    <span class="md-title">Salo,m</span>
+                    <span class="md-subhead">Data Types</span>
+                  </md-card-header-text>
+                  <md-button style="margin: 0;" class="md-accent" ng-click="addSchemaDialog($event)">
+                    <md-icon class="material-icons">add</md-icon>
+                    <span>Add</span>
+                  </md-button>
+                </md-card-header>
+                <md-divider></md-divider>
+                <md-list>
+                  <md-list-item ng-repeat="schema in schemas" layout="row" ng-click="null">
+                    <span flex>{{ schema.Name }}</span>
+                    <span class="md-caption" style="color:rgba(0,0,0,0.57);">{{ schema.PropertyCount }} Properties</span>
+                  </md-list-item>
+                </md-list>
+              </md-card>
+            </div>
+          </div>
+          
+          <div flex="50">
+            <div>
+              <md-card>
+                <md-card-header>
+                  <md-card-avatar>
+                    <md-icon class="material-icons">
+                      dashboard
+                    </md-icon>
+                  </md-card-avatar>
+                  <md-card-header-text>
+                    <span class="md-title">APIs</span>
+                    <span class="md-subhead">For Developers</span>
+                  </md-card-header-text>
+                  <md-button style="margin: 0;" class="md-accent" ng-click="addApiDialog($event)">
+                    <md-icon class="material-icons">add</md-icon>
+                    <span>Add</span>
+                  </md-button>
+                </md-card-header>
+                <md-divider></md-divider>
+                <md-list>
+                  <md-list-item ng-repeat="api in apis" layout="row" ng-click="null">
+                    <span flex>{{ api.Name }}</span>
+                    <span class="md-caption" style="color:rgba(0,0,0,0.57);">{{ api.CurrentStable }}</span>
+                  </md-list-item>
+                </md-list>
+              </md-card>
+            </div>
+
+            <div>
+              <md-card>
+                <md-card-header>
+                  <md-card-avatar>
+                    <md-icon class="material-icons">
+                      web
+                    </md-icon>
+                  </md-card-avatar>
+                  <md-card-header-text>
+                    <span class="md-title">Muhim Duolar</span>
+                    <span class="md-subhead">For Users</span>
+                  </md-card-header-text>
+                  <md-button style="margin: 0;" class="md-accent" ng-click="addClientDialog($event)">
+                    <md-icon class="material-icons">add</md-icon>
+                    <span>Add</span>
+                  </md-button>
+                </md-card-header>
+                <md-divider></md-divider>
+                <md-list>
+                  <md-list-item ng-repeat="client in clients" layout="row"  ng-click="null">
+                    <span flex>{{ client.Name }}</span>
+                    <span class="md-caption" style="color:rgba(0,0,0,0.57);">{{ client.CurrentStable }}</span>
+                  </md-list-item>
+                </md-list>
+              </md-card>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </md-content>
+  </div>
+  
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">    
+
+    let m = angular.module('BlankApp', ['ngMaterial']);
+
+    m.config(materialConfig);
+
+    materialConfig.$inject = ["$mdThemingProvider"];
+    function materialConfig (  $mdThemingProvider) {
+
+      var dsPurpleMap = $mdThemingProvider.extendPalette('purple', {
+        '500': '#8E24AA',
+        'contrastDefaultColor': 'light'
+      });
+
+      $mdThemingProvider.definePalette('dsPurple', dsPurpleMap);
+
+      $mdThemingProvider.theme('default')
+        .primaryPalette('dsPurple');
+
+    }
+
+    m.controller("AppDashboardCtrl", AppDashboardCtrl);
+
+    AppDashboardCtrl.$inject = ["$scope", "$mdDialog"];
+    function AppDashboardCtrl (  $scope,   $mdDialog) {
+      $scope.app = {
+        Name: "DataStudio",
+      };
+      $scope.apis = [{
+        Name: "AuthApi",
+        CurrentStable: "1.0.0-ALPHA",
+      }, {
+        Name: "UserApi",
+        CurrentStable: "1.0.0-ALPHA",
+      }, {
+        Name: "AdminApi",
+        CurrentStable: "1.0.0-ALPHA",
+      }];
+      $scope.clients = [{
+        Name: "WebClient",
+        CurrentStable: "1.0.0-ALPHA",
+      }, {
+        Name: "AndroidClient",
+        CurrentStable: "1.0.0-ALPHA",
+      }, {
+        Name: "iOsClient",
+        CurrentStable: "1.0.0-ALPHA",
+      }];
+      $scope.schemas = [{
+        Name: "App",
+        PropertyCount: 5,
+      }, {
+        Name: "AppApi",
+        PropertyCount: 5,
+      }, {
+        Name: "AppClient",
+        PropertyCount: 5,
+      }, {
+        Name: "AppSchema",
+        PropertyCount: 5,
+      }, {
+        Name: "AuthAttempt",
+        PropertyCount: 5,
+      }, {
+        Name: "Hash",
+        PropertyCount: 5,
+      }, {
+        Name: "Schema",
+        PropertyCount: 5,
+      }, {
+        Name: "Token",
+        PropertyCount: 5,
+      }, {
+        Name: "User",
+        PropertyCount: 5,
+      }];
+      $scope.addApiDialog = function ($event) {
+        var confirm = $mdDialog.prompt()
+          .title('API Name')
+          .textContent('Choose a name for the API')
+          .placeholder('e.g. UserApi')
+          .ariaLabel('API Name')
+          .initialValue('')
+          .targetEvent($event)
+          .ok('Add API')
+          .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function(result) {
+          $scope.apis.push({
+            Name: result,
+            CurrentStable: "1.0.0-ALPHA"
+          });
+        }, function() {
+          // dialog cancelled
+        });
+      };
+      $scope.addClientDialog = function ($event) {
+        var confirm = $mdDialog.prompt()
+          .title('Client Name')
+          .textContent('Choose a name for the Client')
+          .placeholder('e.g. WebClient')
+          .ariaLabel('Client Name')
+          .initialValue('')
+          .targetEvent($event)
+          .ok('Add Client')
+          .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function(result) {
+          $scope.clients.push({
+            Name: result,
+            CurrentStable: "1.0.0-ALPHA"
+          });
+        }, function() {
+          // dialog cancelled
+        });
+      };
+      $scope.addSchemaDialog = function ($event) {
+        var confirm = $mdDialog.prompt()
+          .title('Schema Name')
+          .textContent('Choose a name for the Schema')
+          .placeholder('e.g. UserProfile')
+          .ariaLabel('Schema Name')
+          .initialValue('')
+          .targetEvent($event)
+          .ok('Add Schema')
+          .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function(result) {
+          $scope.schemas.push({
+            Name: result,
+            PropertyCount: 5,
+          });
+        }, function() {
+          // dialog cancelled
+        });
+      };
+    }
+
+    m.controller("LeftCtrl", LeftCtrl);
+
+    LeftCtrl.$inject = ["$scope"];
+    function LeftCtrl (  $scope) {
+      $scope.menuItems = [{
+        label: "Dashboard",
+        sub: "Meow",
+        icon: "developer_board",
+        onClick: function () {
+          
+        },
+      }];
+      $scope.appMgmtMenuItems = [{
+        label: "Apps",
+        sub: "Meow",
+        icon: "apps",
+        onClick: function () {
+          
+        },
+      }, {
+        label: "Schemas",
+        sub: "Meow",
+        icon: "description",
+        onClick: function () {
+          
+        },
+      }]
+      $scope.acctMenuItems = [{
+        label: "My Profile",
+        sub: "Meow",
+        icon: "person",
+        onClick: function () {
+          
+        },
+      }, {
+        label: "Settings",
+        sub: "Meow",
+        icon: "settings_cog",
+        onClick: function () {
+          
+        },
+      }];
+    }
+  </script>
+  
+</body>
+</html>
